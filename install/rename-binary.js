@@ -7,7 +7,7 @@ if (process.platform === 'win32') {
 }
 
 async function main() {
-    const baseName = 'dist/main';
+    const baseName = '../install/dist/main';
     const rustInfo = (await execa('rustc', ['-vV'])).stdout
     const targetTriple = /host: (\S+)/g.exec(rustInfo)[1]
     if (!targetTriple) {
