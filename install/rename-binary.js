@@ -4,14 +4,14 @@ import os from 'os';
 import path from 'path';
 
 async function main() {
-    console.log(`Renaming Python executable to match Tauri/Rust 'sidecar' requirements...`);
+    console.log(`Renaming Python executable to match Tauri/Rust 'sidecar' configuratin...`);
     const baseName = '../dist/main';
     const rustInfo = (await execa('rustc', ['-vV'])).stdout;
     const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
     if (!targetTriple) {
         console.error('Failed to determine platform target triple');
     } else {
-        console.log(`Target triple: ${targetTriple} (tbh, i don't know what this means, but it has to do with the build system...)`);
+        console.log(`Target triple (architecture, vender, operating system): ${targetTriple}`);
     }
 
     let extension = '';
