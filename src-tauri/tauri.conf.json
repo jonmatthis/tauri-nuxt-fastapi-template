@@ -17,7 +17,7 @@
         "sidecar": true,
         "scope": [
           {
-            "name": "dist/main",
+            "name": "src-python-executable",
             "sidecar": true
           }
         ]
@@ -36,7 +36,7 @@
       "deb": {
         "depends": []
       },
-      "externalBin": ["dist/main"],
+      "externalBin": ["src-python-executable"],
       "icon": [
         "../shared/freemocap-skelly-icon.ico"
       ],
