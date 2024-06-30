@@ -1,4 +1,14 @@
 @echo off
+setlocal
+
+if "%~1"=="" (
+    echo Usage: %~nx0 buildTargetPath pythonMainFilePath
+    exit /b 1
+)
+
+set buildTargetPath=%~1
+set pythonMainFilePath=%~2
+
 echo Executing .bat file from working directory:
 cd
 
@@ -12,8 +22,9 @@ echo Upgrading pip...
 CALL python -m pip install --upgrade pip
 
 echo Installing Python requirements...
-CALL pip install -r install/requirements.txt
+CALL pip install -r requirements.txt
 
 echo Building with PyInstaller...
-CALL pyinstaller --onefile ./src-python/main.py --distpath ./dist
+CALL pyinstaller --onefile %pythonMainFilePath% --distpath ./dist --name %buildTargetPath% --specpath ./install/
 
+endlocal
