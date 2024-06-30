@@ -28,3 +28,4 @@ src-tauri/target/
 node_modules/
 build/
 dist/
+venv/
