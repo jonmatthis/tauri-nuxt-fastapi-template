@@ -1,19 +1,19 @@
 @echo off
+echo Executing .bat file from working directory:
+cd
 
-echo Create virtual environment
+echo Creating virtual environment...
 CALL python -m venv venv
 
-echo Activate virtual environment
+echo Activating virtual environment...
 CALL venv\Scripts\activate.bat
 
-echo Upgrade pip
+echo Upgrading pip...
 CALL python -m pip install --upgrade pip
 
-echo Install Python requirements
-CALL pip install -r requirements.txt
+echo Installing Python requirements...
+CALL pip install -r install/requirements.txt
 
-echo  Build with PyInstaller
-CALL pyinstaller --onefile ../src-python/main.py
-
-echo Installation and setup complete!
+echo Building with PyInstaller...
+CALL pyinstaller --onefile ./src-python/main.py --distpath ./dist
 

@@ -17,7 +17,7 @@
         "sidecar": true,
         "scope": [
           {
-            "name": "../install/dist/main",
+            "name": "dist/main",
             "sidecar": true
           }
         ]
