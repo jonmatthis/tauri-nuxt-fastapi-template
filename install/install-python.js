@@ -18,20 +18,14 @@ async function main() {
     const scriptName = process.platform === 'win32' ? 'install-python.bat' : 'install-python.sh';
     const scriptPath = path.join(__dirname, scriptName);
     const pythonMainFileFullPath = path.join(__dirname, '../src-python/main.py')
-    console.log(`Preparing to run script: ${scriptPath}...`);
+    const pythonRequirementsFullPath = path.join(__dirname, '../install/requirements.txt')
+    const binaryDestinationFolder = path.join(__dirname, '../dist')
+    const tauriConfigPath =  path.join(__dirname, '../src-tauri/tauri.conf.json')
 
-    console.log('Load Tauri config...')
-    const data = fs.readFileSync('../src-tauri/tauri.conf.json', 'utf8')
+    console.log(`Load Tauri config from: ${tauriConfigPath}`)
+    const data = fs.readFileSync(tauriConfigPath, 'utf8')
     const tauriConfig = JSON.parse(data);
-    const baseName = tauriConfig.tauri.allowlist.shell.scope[0].name
-
-    const originalBinaryPath = await path.resolve(`${baseName}${extension}`)
-
-    if (!fs.existsSync(originalBinaryPath)) {
-        console.error(`Original binary not found at:${originalBinaryPath}`);
-        return;
-    }
-
+    const binaryBaseName = tauriConfig.tauri.allowlist.shell.scope[0].name
 
     if (!fs.existsSync(scriptPath)) {
         console.error(`Script not found:${scriptPath}`);
@@ -50,7 +44,7 @@ async function main() {
     } else {
         console.log(`Target triple (architecture, vender, operating system): ${targetTriple}`);
     }
-    const binaryNameWithTargetTripleSuffix =`${baseName}-${targetTriple}${extension}`
+    const targetBinaryName =`${binaryBaseName}-${targetTriple}${extension}`
 
     if (os.platform !== 'win32') {
         console.log('Setting script permissions to be executable...');
@@ -58,9 +52,9 @@ async function main() {
     }
 
     try {
-        console.log(`Running the install script with args: \nbinaryPath: ${binaryNameWithTargetTripleSuffix}, \npythonMainFilePath: ${pythonMainFileFullPath}\n==================`);
+        console.log(`Running the install script with args: \n'pythonRequirementsFullPath': ${pythonRequirementsFullPath}\n'targetBinaryName': ${targetBinaryName}, \n'pythonMainFilePath': ${pythonMainFileFullPath}\n'binaryDestinationFolder': ${binaryDestinationFolder}\n==================`);
 
-        await execa(scriptPath, [binaryNameWithTargetTripleSuffix, pythonMainFileFullPath],{ stdio: 'inherit' });
+        await execa(scriptPath, [pythonRequirementsFullPath, targetBinaryName, pythonMainFileFullPath, binaryDestinationFolder],{ stdio: 'inherit' });
 
         console.log(`=======================\n Script completed`)
     } catch (error) {

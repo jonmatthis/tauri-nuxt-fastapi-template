@@ -2,12 +2,14 @@
 setlocal
 
 if "%~1"=="" (
-    echo Usage: %~nx0 buildTargetPath pythonMainFilePath
+    echo Usage: %~nx0 pythonRequirementsFullPath, targetBinaryName pythonMainFilePath binaryDestinationFolder
     exit /b 1
 )
 
-set buildTargetPath=%~1
-set pythonMainFilePath=%~2
+set pythonRequirementsFullPath=%~1
+set targetBinaryName=%~2
+set pythonMainFilePath=%~3
+set binaryDestinationFolder=%~4
 
 echo Executing .bat file from working directory:
 cd
@@ -22,9 +24,9 @@ echo Upgrading pip...
 CALL python -m pip install --upgrade pip
 
 echo Installing Python requirements...
-CALL pip install -r requirements.txt
+CALL pip install -r %pythonRequirementsFullPath%
 
 echo Building with PyInstaller...
-CALL pyinstaller --onefile %pythonMainFilePath% --distpath ./dist --name %buildTargetPath% --specpath ./install/
+CALL pyinstaller --onefile %pythonMainFilePath% --distpath %binaryDestinationFolder% --name %targetBinaryName%
 
 endlocal
