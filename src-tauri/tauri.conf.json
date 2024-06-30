@@ -40,7 +40,7 @@
       "icon": [
         "../shared/freemocap-skelly-icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "tauri.nuxt.fastapi.app",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
