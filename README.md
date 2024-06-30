@@ -1,19 +1,22 @@
 # Tauri Nuxt App
 
 ## Installation
-
-- Install Rust on your system - https://www.rust-lang.org/tools/install
-- Install Node.js
-- Run the following commands in this directory (i.e the same directory as this `README.md` file)
-
+### Pre-requisites
+- [Install Rust on your system](https://www.rust-lang.org/tools/install)
+- [Install Node.js](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs)
+### Install JS stuff & create `python` executable 
 ```
 npm install
 ```
 
-## Running the app
-
+## Running the app in `dev` mode
 ```
 npm run tauri-dev
+```
+
+## Build the app
+```
+npm run build
 ```
 
 whee! 

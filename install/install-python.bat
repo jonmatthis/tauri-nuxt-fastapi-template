@@ -13,7 +13,7 @@ echo Install Python requirements
 CALL pip install -r requirements.txt
 
 echo  Build with PyInstaller
-CALL pyinstaller --onefile src-python/main.py
+CALL pyinstaller --onefile ../src-python/main.py
 
 echo Installation and setup complete!
 
